@@ -1,0 +1,178 @@
+<?php
+require_once 'config.php';
+$current_page = get_current_page();
+?>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="<?php echo SITE_DESCRIPTION; ?>">
+    <meta name="keywords" content="<?php echo SITE_KEYWORDS; ?>">
+    <title><?php echo isset($page_title) ? $page_title . ' - ' . SITE_NAME : SITE_TITLE; ?></title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#FF6B35',
+                            50: '#FFE8E0',
+                            100: '#FFD4C7',
+                            200: '#FFAD95',
+                            300: '#FF8663',
+                            400: '#FF6B35',
+                            500: '#FF4500',
+                            600: '#CC3700',
+                            700: '#992900',
+                            800: '#661B00',
+                            900: '#330E00',
+                        },
+                        dark: {
+                            DEFAULT: '#0F0F0F',
+                            lighter: '#1A1A1A',
+                            light: '#2A2A2A',
+                        },
+                        accent: {
+                            cyan: '#00D9FF',
+                            gold: '#FFD700',
+                        }
+                    },
+                    fontFamily: {
+                        arabic: ['Cairo', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #FF6B35 0%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-dark text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="<?php echo url(); ?>" class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent-gold flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">P</span>
+                    </div>
+                    <span class="text-2xl font-bold gradient-text">PYRAMEDIA</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="<?php echo url(); ?>" 
+                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'home' ? 'text-primary' : ''; ?>">
+                        الرئيسية
+                    </a>
+                    <a href="<?php echo url('about.php'); ?>" 
+                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'about' ? 'text-primary' : ''; ?>">
+                        من نحن
+                    </a>
+                    <a href="<?php echo url('services.php'); ?>" 
+                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'services' ? 'text-primary' : ''; ?>">
+                        خدماتنا
+                    </a>
+                    <a href="<?php echo url('portfolio.php'); ?>" 
+                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'portfolio' ? 'text-primary' : ''; ?>">
+                        أعمالنا
+                    </a>
+                    <a href="<?php echo url('contact.php'); ?>" 
+                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'contact' ? 'text-primary' : ''; ?>">
+                        تواصل معنا
+                    </a>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden md:block">
+                    <a href="<?php echo url('contact.php'); ?>" 
+                       class="px-6 py-3 bg-primary hover:bg-primary-600 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-xl hover:scale-105 inline-flex items-center gap-2">
+                        <span>ابدأ مشروعك</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-white/5 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden py-4 border-t border-white/10">
+                <div class="flex flex-col gap-4">
+                    <a href="<?php echo url(); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">الرئيسية</a>
+                    <a href="<?php echo url('about.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">من نحن</a>
+                    <a href="<?php echo url('services.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">خدماتنا</a>
+                    <a href="<?php echo url('portfolio.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">أعمالنا</a>
+                    <a href="<?php echo url('contact.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">تواصل معنا</a>
+                    <a href="<?php echo url('contact.php'); ?>" class="px-6 py-3 bg-primary hover:bg-primary-600 text-white rounded-lg font-semibold transition-all duration-300 text-center">
+                        ابدأ مشروعك
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+    </script>
+
