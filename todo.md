@@ -6,18 +6,18 @@
 - [x] Initialize Git
 
 ## Phase 2: Core Files
-- [ ] Create index.php (Home page)
-- [ ] Create config.php (Configuration)
-- [ ] Create header.php (Navigation)
-- [ ] Create footer.php (Footer)
+- [x] Create index.php (Home page)
+- [x] Create config.php (Configuration)
+- [x] Create header.php (Navigation)
+- [x] Create footer.php (Footer)
 - [ ] Push to GitHub
 
 ## Phase 3: Home Page Sections
-- [ ] Hero section
-- [ ] Stats section
-- [ ] Services section
-- [ ] Portfolio preview
-- [ ] CTA section
+- [x] Hero section
+- [x] Stats section
+- [x] Services section
+- [x] Portfolio preview
+- [x] CTA section
 - [ ] Push to GitHub
 
 ## Phase 4: Portfolio Page
