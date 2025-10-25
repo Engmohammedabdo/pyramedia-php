@@ -21,9 +21,9 @@
 - [ ] Push to GitHub
 
 ## Phase 4: Portfolio Page
-- [ ] Create portfolio.php
-- [ ] Grid layout with filters
-- [ ] Load data from JSON
+- [x] Create portfolio.php
+- [x] Grid layout with filters
+- [x] Load data from JSON
 - [ ] Push to GitHub
 
 ## Phase 5: Other Pages
