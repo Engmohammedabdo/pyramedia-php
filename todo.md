@@ -27,16 +27,16 @@
 - [ ] Push to GitHub
 
 ## Phase 5: Other Pages
-- [ ] Create about.php
-- [ ] Create services.php
-- [ ] Create contact.php
+- [x] Create about.php
+- [x] Create services.php
+- [x] Create contact.php
 - [ ] Push to GitHub
 
 ## Phase 6: Styling
-- [ ] Setup Tailwind CSS (CDN)
-- [ ] Dark & Bold theme
-- [ ] Responsive design
-- [ ] Animations
+- [x] Setup Tailwind CSS (CDN)
+- [x] Dark - [ ] Dark & Bold theme Bold theme
+- [x] Responsive design
+- [x] Animations
 - [ ] Push to GitHub
 
 ## Phase 7: Deploy
