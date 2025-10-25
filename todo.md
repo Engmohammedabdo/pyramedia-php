@@ -40,8 +40,8 @@
 - [ ] Push to GitHub
 
 ## Phase 7: Deploy
-- [ ] Test locally
-- [ ] Push final version to GitHub
-- [ ] Deploy to Coolify
-- [ ] Test on production
+- [x] Test locally
+- [x] Push final version to GitHub
+- [x] Deploy to Coolify
+- [x] Test on production
 
