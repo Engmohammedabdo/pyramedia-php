@@ -58,9 +58,9 @@
 
 ### New Pages
 - [x] Create pricing.php (3 packages + CTA)
-- [ ] Create case-studies.php (detailed case studies)
-- [ ] Create privacy.php (privacy policy)
-- [ ] Create 404.php (error page)
+- [x] Create case-studies.php (detailed case studies)
+- [x] Create privacy.php (privacy policy)
+- [x] Create 404.php (error page)
 
 ### New Components
 - [ ] Testimonials slider (auto-slide)

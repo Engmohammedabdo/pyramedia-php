@@ -50,6 +50,9 @@
                         <li><a href="<?php echo url('about.php'); ?>" class="text-gray-400 hover:text-primary transition-colors duration-300">من نحن</a></li>
                         <li><a href="<?php echo url('services.php'); ?>" class="text-gray-400 hover:text-primary transition-colors duration-300">خدماتنا</a></li>
                         <li><a href="<?php echo url('portfolio.php'); ?>" class="text-gray-400 hover:text-primary transition-colors duration-300">أعمالنا</a></li>
+                        <li><a href="<?php echo url('pricing.php'); ?>" class="text-gray-400 hover:text-primary transition-colors duration-300">الأسعار</a></li>
+                        <li><a href="<?php echo url('case-studies.php'); ?>" class="text-gray-400 hover:text-primary transition-colors duration-300">دراسات الحالة</a></li>
+                        <li><a href="<?php echo url('contact.php'); ?>" class="text-gray-400 hover:text-primary transition-colors duration-300">تواصل معنا</a></li>
                     </ul>
                 </div>
 
@@ -99,8 +102,8 @@
             <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
                 <p>© <?php echo date('Y'); ?> Pyramedia. جميع الحقوق محفوظة.</p>
                 <div class="flex gap-6">
-                    <a href="#" class="hover:text-primary transition-colors">سياسة الخصوصية</a>
-                    <a href="#" class="hover:text-primary transition-colors">الشروط والأحكام</a>
+                    <a href="<?php echo url('privacy.php'); ?>" class="hover:text-primary transition-colors">سياسة الخصوصية</a>
+                    <a href="<?php echo url('contact.php'); ?>" class="hover:text-primary transition-colors">اتصل بنا</a>
                 </div>
             </div>
         </div>
