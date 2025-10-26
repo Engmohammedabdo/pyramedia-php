@@ -21,26 +21,27 @@ $current_page = get_current_page();
                 extend: {
                     colors: {
                         primary: {
-                            DEFAULT: '#FF6B35',
-                            50: '#FFE8E0',
-                            100: '#FFD4C7',
-                            200: '#FFAD95',
-                            300: '#FF8663',
-                            400: '#FF6B35',
-                            500: '#FF4500',
-                            600: '#CC3700',
-                            700: '#992900',
-                            800: '#661B00',
-                            900: '#330E00',
+                            DEFAULT: '#d4af37',  // Gold
+                            50: '#faf8f0',
+                            100: '#f5f0dd',
+                            200: '#ebe1bb',
+                            300: '#e0d299',
+                            400: '#d6c377',
+                            500: '#d4af37',
+                            600: '#c19a1f',
+                            700: '#9a7b19',
+                            800: '#735c13',
+                            900: '#4c3d0d',
                         },
                         dark: {
-                            DEFAULT: '#0F0F0F',
+                            DEFAULT: '#0b0b0c',  // Deep black
                             lighter: '#1A1A1A',
                             light: '#2A2A2A',
                         },
+                        muted: '#9aa0a6',
                         accent: {
                             cyan: '#00D9FF',
-                            gold: '#FFD700',
+                            gold: '#d4af37',
                         }
                     },
                     fontFamily: {
@@ -63,7 +64,7 @@ $current_page = get_current_page();
         }
         
         .gradient-text {
-            background: linear-gradient(135deg, #FF6B35 0%, #FFD700 100%);
+            background: linear-gradient(135deg, #d4af37 0%, #f5f0dd 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;

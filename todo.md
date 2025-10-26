@@ -45,3 +45,70 @@
 - [x] Deploy to Coolify
 - [x] Test on production
 
+
+---
+
+## Phase 8: Front-End Upgrade (Based on Brief)
+
+### Brand Identity Update
+- [x] Update color scheme (--color-bg: #0b0b0c, --color-accent: #d4af37)
+- [ ] Add CSS Variables system
+- [ ] Update typography (Tajawal/Cairo for AR, Inter for EN)
+- [ ] Add Lucide/Tabler icons (local sprite)
+
+### New Pages
+- [x] Create pricing.php (3 packages + CTA)
+- [ ] Create case-studies.php (detailed case studies)
+- [ ] Create privacy.php (privacy policy)
+- [ ] Create 404.php (error page)
+
+### New Components
+- [ ] Testimonials slider (auto-slide)
+- [x] FAQ accordion with Schema FAQPage
+- [x] Pricing toggle (monthly/yearly)
+- [ ] Breadcrumbs component
+- [ ] Toast/Alert component
+- [ ] Badges (New/Offer)
+
+### Multi-language Support (AR/EN)
+- [ ] Add language switcher in header
+- [ ] Create ar.json and en.json for content
+- [ ] Implement RTL/LTR auto-switch
+- [ ] Add hreflang tags
+- [ ] Update all components for RTL support
+
+### Performance Optimization
+- [ ] Convert images to WebP/AVIF
+- [ ] Add loading="lazy" to images
+- [ ] Implement Critical CSS (inline ≤8KB)
+- [ ] Minify CSS and JS
+- [ ] Add preload for fonts
+- [ ] Add Cache-Control headers
+
+### SEO Enhancement
+- [ ] Add meta tags to all pages
+- [ ] Add OG/Twitter Cards
+- [ ] Implement JSON-LD Schema
+- [ ] Create robots.txt
+- [ ] Create sitemap.xml
+- [ ] Add breadcrumbs with Schema
+
+### Accessibility (A11y)
+- [ ] Ensure color contrast AA
+- [ ] Add keyboard navigation
+- [ ] Add ARIA labels
+- [ ] Add alt text to all images
+- [ ] Test with axe-core
+
+### Landing Pages
+- [ ] Create landing: Web Design 999 AED
+- [ ] Create landing: Real-Estate Automation
+
+### Testing & Deployment
+- [ ] Run Lighthouse (target ≥90)
+- [ ] Test A11y with axe-core
+- [ ] Test AR/EN switching
+- [ ] Create STYLEGUIDE.md
+- [ ] Push to GitHub
+- [ ] Deploy to Coolify
+- [ ] Generate Lighthouse report

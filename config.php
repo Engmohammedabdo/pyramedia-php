@@ -9,6 +9,12 @@ define('SITE_TITLE', 'Pyramedia - AI-Powered Digital Marketing');
 define('SITE_DESCRIPTION', 'Transform your ideas into digital success with AI-powered marketing solutions. 500+ successful projects in digital marketing, design, and social media management.');
 define('SITE_KEYWORDS', 'digital marketing, AI marketing, graphic design, social media, UAE, تسويق إلكتروني, ذكاء اصطناعي');
 
+// Brand Colors (CSS Variables)
+define('COLOR_BG', '#0b0b0c');        // Deep black
+define('COLOR_FG', '#ffffff');        // White
+define('COLOR_ACCENT', '#d4af37');    // Gold
+define('COLOR_MUTED', '#9aa0a6');     // Muted gray
+
 // Contact Information
 define('CONTACT_EMAIL', 'info@pyramedia.ae');
 define('CONTACT_PHONE', '+971 XX XXX XXXX');
@@ -43,6 +49,30 @@ function get_portfolio_data() {
 function get_current_page() {
     $page = basename($_SERVER['PHP_SELF'], '.php');
     return $page === 'index' ? 'home' : $page;
+}
+
+function get_lang() {
+    return $_SESSION['lang'] ?? 'ar';
+}
+
+function set_lang($lang) {
+    $_SESSION['lang'] = $lang;
+}
+
+function t($key, $lang = null) {
+    $lang = $lang ?? get_lang();
+    static $translations = [];
+    
+    if (!isset($translations[$lang])) {
+        $file = __DIR__ . "/lang/{$lang}.json";
+        if (file_exists($file)) {
+            $translations[$lang] = json_decode(file_get_contents($file), true);
+        } else {
+            $translations[$lang] = [];
+        }
+    }
+    
+    return $translations[$lang][$key] ?? $key;
 }
 ?>
 
