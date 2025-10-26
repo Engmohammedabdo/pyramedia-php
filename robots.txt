@@ -1,0 +1,32 @@
+# robots.txt for Pyramedia
+
+User-agent: *
+Allow: /
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /config/
+Disallow: /includes/
+
+# Disallow sensitive files
+Disallow: /*.json$
+Disallow: /*.md$
+
+# Allow CSS, JS, and images
+Allow: /assets/
+Allow: /public/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+
+# Sitemap
+Sitemap: http://pyramedia.72.61.148.81.sslip.io/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    
+    <!-- Homepage -->
+    <url>
+        <loc>http://pyramedia.72.61.148.81.sslip.io/</loc>
+        <lastmod>2025-10-25</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- About -->
+    <url>
+        <loc>http://pyramedia.72.61.148.81.sslip.io/about.php</loc>
+        <lastmod>2025-10-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Services -->
+    <url>
+        <loc>http://pyramedia.72.61.148.81.sslip.io/services.php</loc>
+        <lastmod>2025-10-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Portfolio -->
+    <url>
+        <loc>http://pyramedia.72.61.148.81.sslip.io/portfolio.php</loc>
+        <lastmod>2025-10-25</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Pricing -->
+    <url>
+        <loc>http://pyramedia.72.61.148.81.sslip.io/pricing.php</loc>
+        <lastmod>2025-10-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Case Studies -->
+    <url>
+        <loc>http://pyramedia.72.61.148.81.sslip.io/case-studies.php</loc>
+        <lastmod>2025-10-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Contact -->
+    <url>
+        <loc>http://pyramedia.72.61.148.81.sslip.io/contact.php</loc>
+        <lastmod>2025-10-25</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Privacy Policy -->
+    <url>
+        <loc>http://pyramedia.72.61.148.81.sslip.io/privacy.php</loc>
+        <lastmod>2025-10-25</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    
+</urlset>
+

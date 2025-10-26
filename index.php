@@ -1,8 +1,17 @@
 <?php
-$page_title = 'الرئيسية';
+$page_title = SITE_TITLE;
+$page_description = SITE_DESCRIPTION;
 include 'header.php';
 $portfolio = get_portfolio_data();
 $featured_projects = array_slice($portfolio, 0, 6);
+
+// Render Schema markup
+render_schema(get_organization_schema());
+render_schema(get_local_business_schema());
+render_schema(get_website_schema());
+render_schema(get_breadcrumb_schema([
+    ['name' => 'الرئيسية', 'url' => url()]
+]));
 ?>
 
 <!-- Hero Section -->

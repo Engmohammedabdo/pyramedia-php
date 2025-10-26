@@ -1,15 +1,29 @@
 <?php
 require_once 'config.php';
+require_once 'schema.php';
 $current_page = get_current_page();
+
+// Set default SEO values
+$page_title = $page_title ?? SITE_TITLE;
+$page_description = $page_description ?? SITE_DESCRIPTION;
+$page_image = $page_image ?? 'http://pyramedia.72.61.148.81.sslip.io/assets/og-image.jpg';
+$page_url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 ?>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="<?php echo SITE_DESCRIPTION; ?>">
+    <meta name="description" content="<?php echo htmlspecialchars($page_description); ?>">
     <meta name="keywords" content="<?php echo SITE_KEYWORDS; ?>">
-    <title><?php echo isset($page_title) ? $page_title . ' - ' . SITE_NAME : SITE_TITLE; ?></title>
+    <meta name="author" content="<?php echo SITE_NAME; ?>">
+    <meta name="robots" content="index, follow">
+    <title><?php echo htmlspecialchars($page_title); ?></title>
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="<?php echo htmlspecialchars($page_url); ?>">
+    
+    <?php render_og_tags($page_title, $page_description, $page_image, $page_url); ?>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
