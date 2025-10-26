@@ -132,6 +132,10 @@ $current_page = get_current_page();
                        class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'portfolio' ? 'text-primary' : ''; ?>">
                         أعمالنا
                     </a>
+                    <a href="<?php echo url('pricing.php'); ?>" 
+                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'pricing' ? 'text-primary' : ''; ?>">
+                        الأسعار
+                    </a>
                     <a href="<?php echo url('contact.php'); ?>" 
                        class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'contact' ? 'text-primary' : ''; ?>">
                         تواصل معنا
@@ -161,6 +165,7 @@ $current_page = get_current_page();
                     <a href="<?php echo url('about.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">من نحن</a>
                     <a href="<?php echo url('services.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">خدماتنا</a>
                     <a href="<?php echo url('portfolio.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">أعمالنا</a>
+                    <a href="<?php echo url('pricing.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">الأسعار</a>
                     <a href="<?php echo url('contact.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">تواصل معنا</a>
                     <a href="<?php echo url('contact.php'); ?>" class="px-6 py-3 bg-primary hover:bg-primary-600 text-white rounded-lg font-semibold transition-all duration-300 text-center">
                         ابدأ مشروعك
