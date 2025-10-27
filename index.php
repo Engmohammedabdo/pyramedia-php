@@ -1,4 +1,5 @@
 <?php
+require_once 'config.php';
 $page_title = SITE_TITLE;
 $page_description = SITE_DESCRIPTION;
 include 'header.php';

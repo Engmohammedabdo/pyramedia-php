@@ -176,3 +176,4 @@
 - [ ] Push to GitHub
 - [ ] Deploy to Coolify
 - [x] Fix: Headers already sent error in admin/login.php
+- [x] Fix: Undefined constant SITE_TITLE in index.php

@@ -1,4 +1,5 @@
 <?php
+require_once 'config.php';
 $page_title = 'من نحن';
 include 'header.php';
 ?>

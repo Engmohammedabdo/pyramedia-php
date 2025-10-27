@@ -1,4 +1,5 @@
 <?php
+require_once 'config.php';
 $page_title = 'الصفحة غير موجودة - 404';
 include 'header.php';
 ?>

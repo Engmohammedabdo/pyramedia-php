@@ -1,4 +1,5 @@
 <?php
+require_once 'config.php';
 $page_title = 'سابقة أعمالنا';
 include 'header.php';
 $portfolio = get_portfolio_data();

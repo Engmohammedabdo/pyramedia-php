@@ -1,4 +1,5 @@
 <?php
+require_once 'config.php';
 $page_title = 'دراسات الحالة';
 include 'header.php';
 ?>
