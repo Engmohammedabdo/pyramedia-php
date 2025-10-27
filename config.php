@@ -42,8 +42,67 @@ function url($path = '') {
 }
 
 function get_portfolio_data() {
-    $json = file_get_contents(__DIR__ . '/portfolio.json');
-    return json_decode($json, true);
+    // Try to get from database first
+    require_once __DIR__ . '/db.php';
+    
+    try {
+        $items = db_fetch_all("SELECT * FROM portfolio_items ORDER BY order_index ASC, created_at DESC");
+        
+        if (!empty($items)) {
+            // Convert database format to expected format
+            $portfolio = [];
+            foreach ($items as $item) {
+                $portfolio[] = [
+                    'id' => $item['id'],
+                    'project_title' => $item['title'],
+                    'client_name' => $item['client'],
+                    'category' => $item['category'],
+                    'description' => $item['description'],
+                    'image' => $item['image'],
+                    'services' => $item['services'],
+                    'duration' => $item['duration'],
+                    'year' => $item['year']
+                ];
+            }
+            return $portfolio;
+        }
+    } catch (Exception $e) {
+        // Fall back to JSON if database fails
+        error_log("Portfolio DB error: " . $e->getMessage());
+    }
+    
+    // Fallback to JSON file
+    $json_file = __DIR__ . '/pyramedia-portfolio.json';
+    if (file_exists($json_file)) {
+        $json = file_get_contents($json_file);
+        $data = json_decode($json, true);
+        
+        // Convert JSON format to expected format
+        $portfolio = [];
+        foreach ($data as $item) {
+            $portfolio[] = [
+                'id' => $item['id'],
+                'project_title' => $item['title'],
+                'client_name' => $item['client'],
+                'category' => $item['category'],
+                'description' => $item['description'],
+                'image' => $item['image'],
+                'services' => implode(', ', $item['tags'] ?? []),
+                'duration' => $item['duration'] ?? '',
+                'year' => null
+            ];
+        }
+        return $portfolio;
+    }
+    
+    // Last fallback: old portfolio.json
+    $old_json = __DIR__ . '/portfolio.json';
+    if (file_exists($old_json)) {
+        $json = file_get_contents($old_json);
+        return json_decode($json, true);
+    }
+    
+    return [];
 }
 
 function get_current_page() {

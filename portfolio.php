@@ -57,7 +57,7 @@ sort($categories);
                         <div class="relative h-48 bg-gradient-to-br from-primary/20 to-accent-gold/20 rounded-lg mb-6 overflow-hidden">
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <div class="text-6xl font-bold text-white/10">
-                                    <?php echo mb_substr($project['client_name'], 0, 1); ?>
+                                    <?php echo !empty($project['client_name']) ? mb_substr($project['client_name'], 0, 1) : 'P'; ?>
                                 </div>
                             </div>
                             <!-- Hover Overlay -->
