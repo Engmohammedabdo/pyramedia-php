@@ -16,7 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     // Include database configuration
-    require_once '../config.php';
+    require_once '../db.php';
+    $conn = get_db_connection();
     
     $results = [];
     $errors = [];
