@@ -106,4 +106,3 @@ function db_count($table, $where = '1=1', $params = []) {
     return $result['count'] ?? 0;
 }
 ?>
-

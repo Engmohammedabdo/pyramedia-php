@@ -75,4 +75,3 @@ function t($key, $lang = null) {
     return $translations[$lang][$key] ?? $key;
 }
 ?>
-

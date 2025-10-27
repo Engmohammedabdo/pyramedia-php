@@ -199,4 +199,3 @@ $recent_activity = db_fetch_all(
 </div>
 
 <?php require_once 'footer.php'; ?>
-

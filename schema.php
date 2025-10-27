@@ -147,4 +147,3 @@ function render_og_tags($title, $description, $image = null, $url = null) {
     <?php
 }
 ?>
-

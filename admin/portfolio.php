@@ -214,4 +214,3 @@ function hideAddForm() {
 </script>
 
 <?php require_once 'footer.php'; ?>
-

@@ -230,4 +230,3 @@ document.getElementById('messageModal').addEventListener('click', function(e) {
 </script>
 
 <?php require_once 'footer.php'; ?>
-

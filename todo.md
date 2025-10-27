@@ -175,3 +175,4 @@
 - [ ] Test all admin features
 - [ ] Push to GitHub
 - [ ] Deploy to Coolify
+- [x] Fix: Headers already sent error in admin/login.php

@@ -279,4 +279,3 @@ document.querySelectorAll('.filter-btn:not(.active)').forEach(btn => {
 </style>
 
 <?php include 'footer.php'; ?>
-

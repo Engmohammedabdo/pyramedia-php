@@ -291,4 +291,3 @@ function toggleFaq(index) {
 </script>
 
 <?php include 'footer.php'; ?>
-

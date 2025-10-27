@@ -365,4 +365,3 @@ render_schema(get_breadcrumb_schema([
 </section>
 
 <?php include 'footer.php'; ?>
-

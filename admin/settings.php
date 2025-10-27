@@ -172,4 +172,3 @@ foreach ($settings_raw as $setting) {
 </form>
 
 <?php require_once 'footer.php'; ?>
-
