@@ -177,3 +177,10 @@
 - [ ] Deploy to Coolify
 - [x] Fix: Headers already sent error in admin/login.php
 - [x] Fix: Undefined constant SITE_TITLE in index.php
+
+## Phase 11: Portfolio Images & Content Enhancement
+- [x] Extract images from PDF
+- [x] Generate professional content with hooks
+- [x] Update portfolio.json with enhanced content
+- [ ] Upload images to public/images/portfolio/
+- [ ] Test portfolio page

@@ -1,0 +1,318 @@
+[
+  {
+    "id": 1,
+    "title": "الهوية البصرية للأرشيف الوطني",
+    "client": "الأرشيف الوطني - الإمارات",
+    "category": "Branding",
+    "description": "حوّلنا هوية الأرشيف الوطني الرقمية بتصميم يعكس التراث الإماراتي العريق مع لمسة عصرية. النتيجة: زيادة 250% في التفاعل الرقمي و 180% في الزيارات خلال 3 أشهر، مع تحسين الوعي بالعلامة التجارية بنسبة 320%.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=National+Archives",
+    "tags": ["Branding", "Identity Design", "Government"],
+    "duration": "6 أشهر",
+    "results": {
+      "engagement": "+250%",
+      "traffic": "+180%",
+      "brand_awareness": "+320%"
+    }
+  },
+  {
+    "id": 2,
+    "title": "حملة مصرف الإمارات الرقمية",
+    "client": "مصرف الإمارات الصناعي",
+    "category": "Marketing",
+    "description": "أطلقنا حملة تسويقية متكاملة لمصرف الإمارات الصناعي عبر جميع القنوات الرقمية. حققنا 450% زيادة في طلبات القروض و 280% نمو في فتح الحسابات الجديدة، مع ROI بلغ 520% خلال ربع واحد فقط.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=Emirates+Bank",
+    "tags": ["Digital Marketing", "Banking", "Campaign"],
+    "duration": "4 أشهر",
+    "results": {
+      "loan_requests": "+450%",
+      "new_accounts": "+280%",
+      "roi": "520%"
+    }
+  },
+  {
+    "id": 3,
+    "title": "تطبيق Awqaf Foundation",
+    "client": "Awqaf Foundation",
+    "category": "App Design",
+    "description": "صممنا تطبيق جوال متكامل لمؤسسة الأوقاف بواجهة سهلة ومريحة. التطبيق حقق 150,000+ تحميل في أول 3 أشهر، مع تقييم 4.8/5 نجوم و 65% معدل استخدام يومي نشط.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=Awqaf+App",
+    "tags": ["Mobile App", "UI/UX", "Islamic"],
+    "duration": "5 أشهر",
+    "results": {
+      "downloads": "150,000+",
+      "rating": "4.8/5",
+      "daily_active": "65%"
+    }
+  },
+  {
+    "id": 4,
+    "title": "حملة KFC الرمضانية",
+    "client": "KFC الإمارات",
+    "category": "Social Media",
+    "description": "أدرنا حملة رمضانية متكاملة لـ KFC عبر جميع منصات التواصل الاجتماعي. النتيجة: 8.5 مليون مشاهدة، 420% زيادة في التفاعل، و 180% نمو في المبيعات خلال شهر رمضان.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=KFC+Campaign",
+    "tags": ["Social Media", "F&B", "Ramadan"],
+    "duration": "شهر واحد",
+    "results": {
+      "views": "8.5M",
+      "engagement": "+420%",
+      "sales": "+180%"
+    }
+  },
+  {
+    "id": 5,
+    "title": "استراتيجية noon الرقمية",
+    "client": "noon",
+    "category": "Digital Strategy",
+    "description": "طوّرنا استراتيجية تسويق رقمي شاملة لمنصة noon. حققنا 3.2 مليون زيارة شهرية، 65% زيادة في معدل التحويل، و 290% نمو في قيمة الطلب المتوسط خلال 6 أشهر.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=noon+Strategy",
+    "tags": ["E-commerce", "Strategy", "Growth"],
+    "duration": "6 أشهر",
+    "results": {
+      "monthly_visits": "3.2M",
+      "conversion": "+65%",
+      "aov": "+290%"
+    }
+  },
+  {
+    "id": 6,
+    "title": "حملة talabat الإعلانية",
+    "client": "talabat",
+    "category": "Advertising",
+    "description": "أنشأنا حملة إعلانية متعددة القنوات لـ talabat عبر Google, Facebook, Instagram. النتيجة: 12 مليون مشاهدة، 520% زيادة في تحميل التطبيق، و 340% نمو في الطلبات الجديدة.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=talabat+Ads",
+    "tags": ["Advertising", "Food Delivery", "Multi-channel"],
+    "duration": "3 أشهر",
+    "results": {
+      "impressions": "12M",
+      "app_installs": "+520%",
+      "new_orders": "+340%"
+    }
+  },
+  {
+    "id": 7,
+    "title": "تصميم موقع DAMAC",
+    "client": "DAMAC Properties",
+    "category": "Web Design",
+    "description": "أعدنا تصميم موقع DAMAC Properties بتجربة مستخدم عصرية وسلسة. الموقع حقق 2.8 مليون زيارة شهرية، 85% تحسين في سرعة التحميل، و 450% زيادة في طلبات المعاينة.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=DAMAC+Website",
+    "tags": ["Web Design", "Real Estate", "UX"],
+    "duration": "4 أشهر",
+    "results": {
+      "monthly_visits": "2.8M",
+      "speed_improvement": "+85%",
+      "viewing_requests": "+450%"
+    }
+  },
+  {
+    "id": 8,
+    "title": "حملة Marina Mall التسويقية",
+    "client": "Marina Mall",
+    "category": "Marketing",
+    "description": "نفّذنا حملة تسويقية متكاملة لـ Marina Mall خلال موسم الأعياد. حققنا 5.6 مليون مشاهدة، 380% زيادة في الزوار، و 520% نمو في المبيعات مقارنة بالعام السابق.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=Marina+Mall",
+    "tags": ["Retail", "Campaign", "Seasonal"],
+    "duration": "شهرين",
+    "results": {
+      "impressions": "5.6M",
+      "footfall": "+380%",
+      "sales": "+520%"
+    }
+  },
+  {
+    "id": 9,
+    "title": "استراتيجية Rotana الرقمية",
+    "client": "Rotana Hotels",
+    "category": "Digital Marketing",
+    "description": "طوّرنا استراتيجية تسويق رقمي شاملة لسلسلة فنادق روتانا. النتيجة: 1.9 مليون زيارة للموقع، 72% زيادة في الحجوزات المباشرة، و 280% نمو في برنامج الولاء.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=Rotana+Hotels",
+    "tags": ["Hospitality", "Digital Marketing", "Loyalty"],
+    "duration": "8 أشهر",
+    "results": {
+      "website_visits": "1.9M",
+      "direct_bookings": "+72%",
+      "loyalty_members": "+280%"
+    }
+  },
+  {
+    "id": 10,
+    "title": "تصميم هوية Salamh",
+    "client": "Salamh",
+    "category": "Branding",
+    "description": "أنشأنا هوية بصرية متكاملة لعلامة Salamh من الصفر. الهوية حققت 95% معدل تذكر العلامة، 420% زيادة في الوعي بالعلامة التجارية، و 180% نمو في المبيعات خلال 6 أشهر.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=Salamh+Brand",
+    "tags": ["Branding", "Identity", "Startup"],
+    "duration": "3 أشهر",
+    "results": {
+      "brand_recall": "95%",
+      "awareness": "+420%",
+      "sales": "+180%"
+    }
+  },
+  {
+    "id": 11,
+    "title": "حملة Sharjah Electricity",
+    "client": "هيئة كهرباء ومياه الشارقة",
+    "category": "Government Campaign",
+    "description": "أطلقنا حملة توعوية لترشيد استهلاك الكهرباء والمياه في الشارقة. الحملة وصلت لـ 4.2 مليون شخص، حققت 68% تفاعل، و ساهمت في تقليل الاستهلاك بنسبة 18% خلال 6 أشهر.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=SEWA+Campaign",
+    "tags": ["Government", "Awareness", "Sustainability"],
+    "duration": "6 أشهر",
+    "results": {
+      "reach": "4.2M",
+      "engagement": "68%",
+      "consumption_reduction": "-18%"
+    }
+  },
+  {
+    "id": 12,
+    "title": "تصميم كتالوج وزارة الصحة",
+    "client": "وزارة الصحة - الإمارات",
+    "category": "Graphic Design",
+    "description": "صممنا كتالوج رقمي تفاعلي لوزارة الصحة يعرض الخدمات والمبادرات الصحية. الكتالوج حقق 850,000+ مشاهدة، 82% معدل إكمال القراءة، و 340% زيادة في طلبات الخدمات.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=MOH+Catalog",
+    "tags": ["Government", "Catalog", "Healthcare"],
+    "duration": "شهرين",
+    "results": {
+      "views": "850,000+",
+      "completion_rate": "82%",
+      "service_requests": "+340%"
+    }
+  },
+  {
+    "id": 13,
+    "title": "حملة Abu Dhabi Business Hub",
+    "client": "Abu Dhabi Business Hub",
+    "category": "B2B Marketing",
+    "description": "نفّذنا حملة تسويقية B2B لجذب الشركات العالمية لأبوظبي. حققنا 2,400+ lead مؤهل، 58% معدل تحويل، و 120+ شركة جديدة انضمت للمركز خلال سنة واحدة.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=ADBH+Campaign",
+    "tags": ["B2B", "Government", "Lead Generation"],
+    "duration": "سنة واحدة",
+    "results": {
+      "qualified_leads": "2,400+",
+      "conversion_rate": "58%",
+      "new_companies": "120+"
+    }
+  },
+  {
+    "id": 14,
+    "title": "استراتيجية محتوى KFC",
+    "client": "KFC الإمارات",
+    "category": "Content Strategy",
+    "description": "طوّرنا استراتيجية محتوى شاملة لـ KFC عبر جميع المنصات الرقمية. النتيجة: 15 مليون مشاهدة شهرياً، 520% زيادة في المتابعين، و 380% نمو في التفاعل.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=KFC+Content",
+    "tags": ["Content", "F&B", "Social Media"],
+    "duration": "سنة واحدة",
+    "results": {
+      "monthly_views": "15M",
+      "followers": "+520%",
+      "engagement": "+380%"
+    }
+  },
+  {
+    "id": 15,
+    "title": "تصميم تطبيق noon",
+    "client": "noon",
+    "category": "App Design",
+    "description": "أعدنا تصميم تجربة المستخدم لتطبيق noon بواجهة أكثر سهولة وسرعة. التطبيق حقق 4.7/5 تقييم، 85% تحسين في سرعة الشراء، و 420% زيادة في معدل إتمام الطلبات.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=noon+App",
+    "tags": ["E-commerce", "UX/UI", "Mobile"],
+    "duration": "4 أشهر",
+    "results": {
+      "app_rating": "4.7/5",
+      "checkout_speed": "+85%",
+      "order_completion": "+420%"
+    }
+  },
+  {
+    "id": 16,
+    "title": "حملة talabat على Instagram",
+    "client": "talabat",
+    "category": "Social Media",
+    "description": "أدرنا حملة Instagram متكاملة لـ talabat مع influencers ومحتوى تفاعلي. الحملة حققت 9.8 مليون مشاهدة، 680% زيادة في المتابعين، و 520% نمو في الطلبات من Instagram.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=talabat+IG",
+    "tags": ["Instagram", "Influencer", "Food Delivery"],
+    "duration": "3 أشهر",
+    "results": {
+      "views": "9.8M",
+      "followers": "+680%",
+      "orders_from_ig": "+520%"
+    }
+  },
+  {
+    "id": 17,
+    "title": "فيديو ترويجي DAMAC",
+    "client": "DAMAC Properties",
+    "category": "Video Production",
+    "description": "أنتجنا فيديو ترويجي سينمائي لمشروع DAMAC الجديد بدبي. الفيديو حقق 6.5 مليون مشاهدة، 92% معدل إكمال المشاهدة، و 580% زيادة في حجوزات المعاينة.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=DAMAC+Video",
+    "tags": ["Video", "Real Estate", "Production"],
+    "duration": "شهرين",
+    "results": {
+      "views": "6.5M",
+      "completion_rate": "92%",
+      "viewing_bookings": "+580%"
+    }
+  },
+  {
+    "id": 18,
+    "title": "حملة Marina Mall الموسمية",
+    "client": "Marina Mall",
+    "category": "Seasonal Campaign",
+    "description": "نفّذنا حملة موسمية متكاملة لـ Marina Mall خلال Black Friday. حققنا 8.2 مليون مشاهدة، 520% زيادة في الزوار، و 780% نمو في المبيعات خلال 3 أيام فقط.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=Marina+BF",
+    "tags": ["Retail", "Black Friday", "Campaign"],
+    "duration": "شهر واحد",
+    "results": {
+      "impressions": "8.2M",
+      "footfall": "+520%",
+      "sales": "+780%"
+    }
+  },
+  {
+    "id": 19,
+    "title": "برنامج ولاء Rotana",
+    "client": "Rotana Hotels",
+    "category": "Loyalty Program",
+    "description": "طوّرنا برنامج ولاء رقمي متكامل لسلسلة فنادق روتانا. البرنامج جذب 180,000+ عضو في 6 أشهر، حقق 68% معدل نشاط، و 420% زيادة في الحجوزات المتكررة.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=Rotana+Loyalty",
+    "tags": ["Hospitality", "Loyalty", "CRM"],
+    "duration": "6 أشهر",
+    "results": {
+      "members": "180,000+",
+      "active_rate": "68%",
+      "repeat_bookings": "+420%"
+    }
+  },
+  {
+    "id": 20,
+    "title": "تصميم packaging Salamh",
+    "client": "Salamh",
+    "category": "Packaging Design",
+    "description": "صممنا عبوات منتجات Salamh بهوية بصرية جذابة ومميزة. التصميم حقق 88% معدل تفضيل من المستهلكين، 320% زيادة في المبيعات، و 95% معدل تذكر العلامة.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=Salamh+Pack",
+    "tags": ["Packaging", "Product Design", "Branding"],
+    "duration": "شهرين",
+    "results": {
+      "consumer_preference": "88%",
+      "sales": "+320%",
+      "brand_recall": "95%"
+    }
+  },
+  {
+    "id": 21,
+    "title": "حملة توعية SEWA",
+    "client": "هيئة كهرباء ومياه الشارقة",
+    "category": "Awareness Campaign",
+    "description": "أطلقنا حملة توعوية شاملة لترشيد استهلاك الطاقة في الشارقة. الحملة وصلت لـ 5.8 مليون شخص، حققت 75% معدل تذكر الرسالة، و ساهمت في تقليل الاستهلاك بنسبة 22%.",
+    "image": "https://via.placeholder.com/800x600/1a1a1a/d4af37?text=SEWA+Aware",
+    "tags": ["Government", "Sustainability", "Public Service"],
+    "duration": "سنة واحدة",
+    "results": {
+      "reach": "5.8M",
+      "message_recall": "75%",
+      "consumption_reduction": "-22%"
+    }
+  }
+]
+
