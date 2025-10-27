@@ -38,6 +38,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 break;
                 
+            case 'edit':
+                $id = (int)($_POST['portfolio_id'] ?? 0);
+                $data = [
+                    'title' => sanitize_input($_POST['title'] ?? ''),
+                    'client' => sanitize_input($_POST['client'] ?? ''),
+                    'category' => sanitize_input($_POST['category'] ?? ''),
+                    'description' => sanitize_input($_POST['description'] ?? ''),
+                    'services' => sanitize_input($_POST['services'] ?? ''),
+                    'duration' => sanitize_input($_POST['duration'] ?? ''),
+                    'year' => (int)($_POST['year'] ?? date('Y')),
+                    'featured' => isset($_POST['featured']) ? 1 : 0,
+                ];
+                
+                if (empty($data['title']) || empty($data['client'])) {
+                    $error = 'يرجى إدخال العنوان واسم العميل';
+                } else {
+                    if (db_update('portfolio_items', $data, 'id = :id', [':id' => $id])) {
+                        $success = 'تم تحديث العمل بنجاح';
+                        log_admin_activity($_SESSION['admin_id'], 'edit_portfolio', "Edited portfolio item #$id: {$data['title']}");
+                    } else {
+                        $error = 'حدث خطأ أثناء التحديث';
+                    }
+                }
+                break;
+                
             case 'delete':
                 $id = (int)($_POST['portfolio_id'] ?? 0);
                 if (db_delete('portfolio_items', 'id = :id', [':id' => $id])) {
@@ -183,7 +208,12 @@ $portfolio_items = db_fetch_all("SELECT * FROM portfolio_items ORDER BY year DES
                 <p class="text-gray-300 text-sm mb-4 line-clamp-2"><?php echo htmlspecialchars($item['description']); ?></p>
                 <?php endif; ?>
                 
-                <div class="flex items-center space-x-2 space-x-reverse">
+                <div class="flex items-center gap-2">
+                    <button onclick="showEditForm(<?php echo $item['id']; ?>)" 
+                            class="flex-1 px-4 py-2 bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-colors">
+                        <i class="fas fa-edit ml-2"></i>
+                        تعديل
+                    </button>
                     <form method="POST" class="flex-1">
                         <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
                         <input type="hidden" name="action" value="delete">
@@ -202,7 +232,94 @@ $portfolio_items = db_fetch_all("SELECT * FROM portfolio_items ORDER BY year DES
     <?php endif; ?>
 </div>
 
+<!-- Edit Form (Hidden by default) -->
+<div id="editForm" class="hidden mb-6 bg-dark-lighter rounded-xl border border-dark-light p-6">
+    <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-bold">تعديل العمل</h3>
+        <button onclick="hideEditForm()" class="text-gray-400 hover:text-white">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <form method="POST" class="space-y-4" id="editFormElement">
+        <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
+        <input type="hidden" name="action" value="edit">
+        <input type="hidden" name="portfolio_id" id="edit_portfolio_id">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">عنوان المشروع *</label>
+                <input type="text" name="title" id="edit_title" required
+                       class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg text-white focus:outline-none focus:border-primary">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">اسم العميل *</label>
+                <input type="text" name="client" id="edit_client" required
+                       class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg text-white focus:outline-none focus:border-primary">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">الفئة</label>
+                <select name="category" id="edit_category"
+                        class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg text-white focus:outline-none focus:border-primary">
+                    <option value="Graphic Design">Graphic Design</option>
+                    <option value="Advertising">Advertising</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Branding">Branding</option>
+                    <option value="Video">Video</option>
+                    <option value="Social Media">Social Media</option>
+                    <option value="Web Development">Web Development</option>
+                </select>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">السنة</label>
+                <input type="number" name="year" id="edit_year" min="2000" max="<?php echo date('Y'); ?>"
+                       class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg text-white focus:outline-none focus:border-primary">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">المدة</label>
+                <input type="text" name="duration" id="edit_duration" placeholder="مثال: 3 أشهر"
+                       class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg text-white focus:outline-none focus:border-primary">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">الخدمات</label>
+                <input type="text" name="services" id="edit_services" placeholder="مثال: تصميم، تطوير، تسويق"
+                       class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg text-white focus:outline-none focus:border-primary">
+            </div>
+        </div>
+        
+        <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">الوصف</label>
+            <textarea name="description" id="edit_description" rows="4"
+                      class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg text-white focus:outline-none focus:border-primary"></textarea>
+        </div>
+        
+        <div>
+            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="featured" id="edit_featured" class="w-5 h-5 rounded bg-dark border-dark-light text-primary focus:ring-primary">
+                <span class="text-gray-300">عمل مميز</span>
+            </label>
+        </div>
+        
+        <div class="flex gap-4">
+            <button type="submit" class="flex-1 px-6 py-3 bg-primary hover:bg-primary-600 text-dark font-semibold rounded-lg transition-all">
+                <i class="fas fa-save ml-2"></i>
+                حفظ التغييرات
+            </button>
+            <button type="button" onclick="hideEditForm()" class="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-all">
+                إلغاء
+            </button>
+        </div>
+    </form>
+</div>
+
 <script>
+// Portfolio items data for JavaScript
+const portfolioData = <?php echo json_encode($portfolio_items); ?>;
+
 function showAddForm() {
     document.getElementById('addForm').classList.remove('hidden');
     document.getElementById('addForm').scrollIntoView({ behavior: 'smooth' });
@@ -210,6 +327,31 @@ function showAddForm() {
 
 function hideAddForm() {
     document.getElementById('addForm').classList.add('hidden');
+}
+
+function showEditForm(id) {
+    // Find the portfolio item
+    const item = portfolioData.find(p => p.id == id);
+    if (!item) return;
+    
+    // Fill the form
+    document.getElementById('edit_portfolio_id').value = item.id;
+    document.getElementById('edit_title').value = item.title || '';
+    document.getElementById('edit_client').value = item.client || '';
+    document.getElementById('edit_category').value = item.category || '';
+    document.getElementById('edit_year').value = item.year || new Date().getFullYear();
+    document.getElementById('edit_duration').value = item.duration || '';
+    document.getElementById('edit_services').value = item.services || '';
+    document.getElementById('edit_description').value = item.description || '';
+    document.getElementById('edit_featured').checked = item.featured == 1;
+    
+    // Show the form
+    document.getElementById('editForm').classList.remove('hidden');
+    document.getElementById('editForm').scrollIntoView({ behavior: 'smooth' });
+}
+
+function hideEditForm() {
+    document.getElementById('editForm').classList.add('hidden');
 }
 </script>
 

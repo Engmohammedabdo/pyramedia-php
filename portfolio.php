@@ -84,14 +84,21 @@ sort($categories);
 
                             <!-- Services -->
                             <div class="flex flex-wrap gap-2 mb-4">
-                                <?php foreach (array_slice($project['services'], 0, 3) as $service): ?>
+                                <?php 
+                                // Convert services string to array if needed
+                                $services = is_array($project['services']) ? $project['services'] : explode(',', $project['services'] ?? '');
+                                $services = array_map('trim', $services);
+                                $services = array_filter($services);
+                                
+                                foreach (array_slice($services, 0, 3) as $service): 
+                                ?>
                                     <span class="px-2 py-1 rounded text-xs bg-dark-lighter text-gray-300 border border-dark-light">
-                                        <?php echo $service; ?>
+                                        <?php echo htmlspecialchars($service); ?>
                                     </span>
                                 <?php endforeach; ?>
-                                <?php if (count($project['services']) > 3): ?>
+                                <?php if (count($services) > 3): ?>
                                     <span class="px-2 py-1 rounded text-xs bg-dark-lighter text-primary border border-primary/30">
-                                        +<?php echo count($project['services']) - 3; ?>
+                                        +<?php echo count($services) - 3; ?>
                                     </span>
                                 <?php endif; ?>
                             </div>
