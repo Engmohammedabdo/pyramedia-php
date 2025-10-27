@@ -263,14 +263,21 @@ render_schema(get_breadcrumb_schema([
 
                         <!-- Services -->
                         <div class="flex flex-wrap gap-2">
-                            <?php foreach (array_slice($project['services'], 0, 2) as $service): ?>
+                            <?php 
+                            // Convert services string to array if needed
+                            $services = is_array($project['services']) ? $project['services'] : explode(',', $project['services'] ?? '');
+                            $services = array_map('trim', $services);
+                            $services = array_filter($services);
+                            
+                            foreach (array_slice($services, 0, 2) as $service): 
+                            ?>
                                 <span class="px-2 py-1 rounded text-xs bg-dark text-gray-300">
-                                    <?php echo $service; ?>
+                                    <?php echo htmlspecialchars($service); ?>
                                 </span>
                             <?php endforeach; ?>
-                            <?php if (count($project['services']) > 2): ?>
+                            <?php if (count($services) > 2): ?>
                                 <span class="px-2 py-1 rounded text-xs bg-dark text-gray-300">
-                                    +<?php echo count($project['services']) - 2; ?>
+                                    +<?php echo count($services) - 2; ?>
                                 </span>
                             <?php endif; ?>
                         </div>
