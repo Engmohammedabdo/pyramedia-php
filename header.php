@@ -6,8 +6,13 @@ $current_page = get_current_page();
 // Set default SEO values
 $page_title = $page_title ?? SITE_TITLE;
 $page_description = $page_description ?? SITE_DESCRIPTION;
-$page_image = $page_image ?? 'http://pyramedia.72.61.148.81.sslip.io/assets/og-image.jpg';
-$page_url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+// Detect protocol (HTTP or HTTPS)
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+$base_url = $protocol . '://' . $_SERVER['HTTP_HOST'];
+
+$page_image = $page_image ?? $base_url . '/assets/og-image.jpg';
+$page_url = $base_url . $_SERVER['REQUEST_URI'];
 ?>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">

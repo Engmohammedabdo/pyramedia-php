@@ -8,19 +8,38 @@ if (is_admin_logged_in()) {
 }
 
 $error = '';
+$info_message = '';
+$ip_address = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+
+// Check for timeout message
+if (isset($_GET['timeout']) && $_GET['timeout'] == '1') {
+    $info_message = 'انتهت جلستك بسبب عدم النشاط. يرجى تسجيل الدخول مرة أخرى.';
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = sanitize_input($_POST['username'] ?? '');
-    $password = $_POST['password'] ?? '';
-    $remember = isset($_POST['remember']);
-    
-    if (empty($username) || empty($password)) {
-        $error = 'يرجى إدخال اسم المستخدم وكلمة المرور';
-    } elseif (admin_login($username, $password, $remember)) {
-        header('Location: index.php');
-        exit;
+    // Check rate limit first
+    $rate_limit = check_login_rate_limit($ip_address);
+
+    if (!$rate_limit['allowed']) {
+        $error = $rate_limit['message'];
     } else {
-        $error = 'اسم المستخدم أو كلمة المرور غير صحيحة';
+        $username = sanitize_input($_POST['username'] ?? '');
+        $password = $_POST['password'] ?? '';
+        $remember = isset($_POST['remember']);
+
+        if (empty($username) || empty($password)) {
+            $error = 'يرجى إدخال اسم المستخدم وكلمة المرور';
+        } elseif (admin_login($username, $password, $remember)) {
+            header('Location: index.php');
+            exit;
+        } else {
+            $attempts_left = $rate_limit['attempts_left'] - 1;
+            if ($attempts_left > 0) {
+                $error = "اسم المستخدم أو كلمة المرور غير صحيحة. لديك {$attempts_left} محاولات متبقية.";
+            } else {
+                $error = 'اسم المستخدم أو كلمة المرور غير صحيحة. هذه آخر محاولة قبل الحظر المؤقت.';
+            }
+        }
     }
 }
 ?>
@@ -66,6 +85,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h1 class="text-2xl font-bold text-white mb-2">Pyramedia Admin</h1>
                 <p class="text-gray-400">لوحة التحكم الإدارية</p>
             </div>
+
+            <!-- Info Message -->
+            <?php if ($info_message): ?>
+            <div class="mb-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+                <p class="text-blue-400 text-sm"><?php echo htmlspecialchars($info_message); ?></p>
+            </div>
+            <?php endif; ?>
 
             <!-- Error Message -->
             <?php if ($error): ?>
@@ -129,13 +155,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
 
-        <!-- Default Credentials Info (Remove in production) -->
-        <div class="mt-4 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-            <p class="text-blue-400 text-xs text-center">
-                <strong>معلومات تسجيل الدخول الافتراضية:</strong><br>
-                Username: admin | Password: admin123
-            </p>
-        </div>
     </div>
 </body>
 </html>

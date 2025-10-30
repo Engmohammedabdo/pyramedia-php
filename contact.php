@@ -1,26 +1,62 @@
 <?php
 require_once 'config.php';
+require_once 'db.php';
 $page_title = 'تواصل معنا';
 include 'header.php';
 
 // Handle form submission
 $success = false;
 $error = false;
+$error_message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $phone = $_POST['phone'] ?? '';
-    $service = $_POST['service'] ?? '';
-    $message = $_POST['message'] ?? '';
+    $name = trim($_POST['name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $phone = trim($_POST['phone'] ?? '');
+    $service = trim($_POST['service'] ?? '');
+    $message = trim($_POST['message'] ?? '');
 
-    // Basic validation
-    if ($name && $email && $message) {
-        // Here you would normally send an email or save to database
-        // For now, we'll just show a success message
-        $success = true;
-    } else {
+    // Validation
+    if (empty($name) || empty($email) || empty($message)) {
         $error = true;
+        $error_message = 'يرجى ملء جميع الحقول المطلوبة';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = true;
+        $error_message = 'البريد الإلكتروني غير صحيح';
+    } elseif (strlen($name) > 100) {
+        $error = true;
+        $error_message = 'الاسم طويل جداً (الحد الأقصى 100 حرف)';
+    } elseif (strlen($message) > 2000) {
+        $error = true;
+        $error_message = 'الرسالة طويلة جداً (الحد الأقصى 2000 حرف)';
+    } else {
+        // Save to database
+        try {
+            $data = [
+                'name' => htmlspecialchars($name, ENT_QUOTES, 'UTF-8'),
+                'email' => htmlspecialchars($email, ENT_QUOTES, 'UTF-8'),
+                'phone' => htmlspecialchars($phone, ENT_QUOTES, 'UTF-8'),
+                'service' => htmlspecialchars($service, ENT_QUOTES, 'UTF-8'),
+                'message' => htmlspecialchars($message, ENT_QUOTES, 'UTF-8'),
+                'ip_address' => $_SERVER['REMOTE_ADDR'] ?? null,
+                'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? null,
+            ];
+
+            $id = db_insert('contact_messages', $data);
+
+            if ($id) {
+                $success = true;
+                // Clear form data on success
+                $name = $email = $phone = $service = $message = '';
+            } else {
+                $error = true;
+                $error_message = 'حدث خطأ أثناء إرسال الرسالة. يرجى المحاولة مرة أخرى.';
+            }
+        } catch (Exception $e) {
+            error_log("Contact form error: " . $e->getMessage());
+            $error = true;
+            $error_message = 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقاً.';
+        }
     }
 }
 ?>
@@ -164,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </svg>
                             <div>
                                 <h3 class="text-lg font-bold text-red-500 mb-1">خطأ!</h3>
-                                <p class="text-gray-300">يرجى ملء جميع الحقول المطلوبة.</p>
+                                <p class="text-gray-300"><?php echo htmlspecialchars($error_message); ?></p>
                             </div>
                         </div>
                     </div>
@@ -178,6 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div>
                             <label for="name" class="block text-sm font-medium mb-2">الاسم *</label>
                             <input type="text" id="name" name="name" required
+                                   value="<?php echo htmlspecialchars($name ?? '', ENT_QUOTES, 'UTF-8'); ?>"
                                    class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg focus:border-primary focus:outline-none transition-colors text-white">
                         </div>
 
@@ -185,6 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div>
                             <label for="email" class="block text-sm font-medium mb-2">البريد الإلكتروني *</label>
                             <input type="email" id="email" name="email" required
+                                   value="<?php echo htmlspecialchars($email ?? '', ENT_QUOTES, 'UTF-8'); ?>"
                                    class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg focus:border-primary focus:outline-none transition-colors text-white">
                         </div>
 
@@ -192,6 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div>
                             <label for="phone" class="block text-sm font-medium mb-2">رقم الهاتف</label>
                             <input type="tel" id="phone" name="phone"
+                                   value="<?php echo htmlspecialchars($phone ?? '', ENT_QUOTES, 'UTF-8'); ?>"
                                    class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg focus:border-primary focus:outline-none transition-colors text-white">
                         </div>
 
@@ -201,13 +240,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <select id="service" name="service"
                                     class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg focus:border-primary focus:outline-none transition-colors text-white">
                                 <option value="">اختر الخدمة</option>
-                                <option value="design">التصميم الجرافيكي</option>
-                                <option value="social">إدارة السوشيال ميديا</option>
-                                <option value="marketing">التسويق الرقمي</option>
-                                <option value="video">إنتاج الفيديو</option>
-                                <option value="web">تطوير المواقع</option>
-                                <option value="ai">حلول الذكاء الاصطناعي</option>
-                                <option value="other">أخرى</option>
+                                <option value="design" <?php echo ($service ?? '') === 'design' ? 'selected' : ''; ?>>التصميم الجرافيكي</option>
+                                <option value="social" <?php echo ($service ?? '') === 'social' ? 'selected' : ''; ?>>إدارة السوشيال ميديا</option>
+                                <option value="marketing" <?php echo ($service ?? '') === 'marketing' ? 'selected' : ''; ?>>التسويق الرقمي</option>
+                                <option value="video" <?php echo ($service ?? '') === 'video' ? 'selected' : ''; ?>>إنتاج الفيديو</option>
+                                <option value="web" <?php echo ($service ?? '') === 'web' ? 'selected' : ''; ?>>تطوير المواقع</option>
+                                <option value="ai" <?php echo ($service ?? '') === 'ai' ? 'selected' : ''; ?>>حلول الذكاء الاصطناعي</option>
+                                <option value="other" <?php echo ($service ?? '') === 'other' ? 'selected' : ''; ?>>أخرى</option>
                             </select>
                         </div>
 
@@ -215,7 +254,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div>
                             <label for="message" class="block text-sm font-medium mb-2">الرسالة *</label>
                             <textarea id="message" name="message" rows="5" required
-                                      class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg focus:border-primary focus:outline-none transition-colors text-white resize-none"></textarea>
+                                      class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg focus:border-primary focus:outline-none transition-colors text-white resize-none"><?php echo htmlspecialchars($message ?? '', ENT_QUOTES, 'UTF-8'); ?></textarea>
                         </div>
 
                         <!-- Submit Button -->
