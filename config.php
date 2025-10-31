@@ -5,6 +5,7 @@
 
 // Site Information
 define('SITE_NAME', 'Pyramedia');
+define('SITE_URL', 'https://gpt.pyramedia.info');
 define('SITE_TITLE', 'Pyramedia - AI-Powered Digital Marketing');
 define('SITE_DESCRIPTION', 'Transform your ideas into digital success with AI-powered marketing solutions. 500+ successful projects in digital marketing, design, and social media management.');
 define('SITE_KEYWORDS', 'digital marketing, AI marketing, graphic design, social media, UAE, تسويق إلكتروني, ذكاء اصطناعي');
@@ -16,7 +17,7 @@ define('COLOR_ACCENT', '#d4af37');    // Gold
 define('COLOR_MUTED', '#9aa0a6');     // Muted gray
 
 // Contact Information
-define('CONTACT_EMAIL', 'info@pyramedia.ae');
+define('CONTACT_EMAIL', 'info@pyramedia.info');
 define('CONTACT_PHONE', '+971 XX XXX XXXX');
 define('CONTACT_ADDRESS', 'United Arab Emirates');
 
