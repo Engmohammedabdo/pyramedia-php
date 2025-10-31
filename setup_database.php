@@ -150,6 +150,39 @@ try {
     echo "</div></div>";
 }
 
+// 2.5. إنشاء جدول contact_messages
+echo "<div class='step'>";
+echo "<div class='step-title'>الخطوة 2.5: إنشاء جدول contact_messages</div>";
+echo "<div class='step-content'>";
+
+$create_messages_table_sql = "CREATE TABLE IF NOT EXISTS `contact_messages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(50),
+  `subject` varchar(255),
+  `message` text NOT NULL,
+  `status` enum('unread','read') DEFAULT 'unread',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`),
+  KEY `created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
+
+try {
+    $conn->exec($create_messages_table_sql);
+    echo "✅ تم إنشاء جدول contact_messages بنجاح";
+    echo "</div></div>";
+    
+    echo "<div class='step success'>";
+    echo "<div class='step-title'>✓ جدول الرسائل جاهز</div>";
+    echo "</div>";
+    
+} catch (PDOException $e) {
+    echo "❌ خطأ: " . $e->getMessage();
+    echo "</div></div>";
+}
+
 // 3. استيراد البيانات من JSON
 echo "<div class='step'>";
 echo "<div class='step-title'>الخطوة 3: استيراد بيانات معرض الأعمال</div>";

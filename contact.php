@@ -3,26 +3,7 @@ require_once 'config.php';
 $page_title = 'تواصل معنا';
 include 'header.php';
 
-// Handle form submission
-$success = false;
-$error = false;
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $phone = $_POST['phone'] ?? '';
-    $service = $_POST['service'] ?? '';
-    $message = $_POST['message'] ?? '';
-
-    // Basic validation
-    if ($name && $email && $message) {
-        // Here you would normally send an email or save to database
-        // For now, we'll just show a success message
-        $success = true;
-    } else {
-        $error = true;
-    }
-}
+// Form will be handled via AJAX
 ?>
 
 <!-- Page Header -->
@@ -170,7 +151,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 <?php endif; ?>
 
-                <form method="POST" class="bg-dark-lighter rounded-xl p-8 border border-dark-light">
+                <div id="form-message" class="hidden mb-6"></div>
+
+                <form id="contact-form" method="POST" action="process_contact.php" class="bg-dark-lighter rounded-xl p-8 border border-dark-light">
                     <h2 class="text-2xl font-bold mb-6">أرسل لنا رسالة</h2>
 
                     <div class="space-y-6">
@@ -218,8 +201,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                       class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg focus:border-primary focus:outline-none transition-colors text-white resize-none"></textarea>
                         </div>
 
+                        <!-- Honeypot field (hidden from users, catches bots) -->
+                        <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+
                         <!-- Submit Button -->
-                        <button type="submit"
+                        <button type="submit" id="submit-btn"
                                 class="w-full px-6 py-4 bg-primary hover:bg-primary-600 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-xl hover:scale-105 inline-flex items-center justify-center gap-2">
                             <span>إرسال الرسالة</span>
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -232,5 +218,101 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </section>
+
+<script>
+// Contact Form AJAX Submission
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const form = this;
+    const submitBtn = document.getElementById('submit-btn');
+    const formMessage = document.getElementById('form-message');
+    const formData = new FormData(form);
+    
+    // Disable submit button
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span>جارٍ الإرسال...</span>';
+    
+    // Send AJAX request
+    fetch('process_contact.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Show message
+        formMessage.classList.remove('hidden');
+        
+        if (data.success) {
+            formMessage.className = 'bg-green-500/10 border border-green-500/30 rounded-xl p-6 mb-6';
+            formMessage.innerHTML = `
+                <div class="flex items-start gap-3">
+                    <svg class="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <div>
+                        <h3 class="text-lg font-bold text-green-500 mb-1">تم إرسال رسالتك بنجاح!</h3>
+                        <p class="text-gray-300">${data.message}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Reset form
+            form.reset();
+            
+            // Scroll to message
+            formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            formMessage.className = 'bg-red-500/10 border border-red-500/30 rounded-xl p-6 mb-6';
+            formMessage.innerHTML = `
+                <div class="flex items-start gap-3">
+                    <svg class="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                    </svg>
+                    <div>
+                        <h3 class="text-lg font-bold text-red-500 mb-1">خطأ!</h3>
+                        <p class="text-gray-300">${data.message}</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `
+            <span>إرسال الرسالة</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+        `;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        
+        formMessage.classList.remove('hidden');
+        formMessage.className = 'bg-red-500/10 border border-red-500/30 rounded-xl p-6 mb-6';
+        formMessage.innerHTML = `
+            <div class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                    <h3 class="text-lg font-bold text-red-500 mb-1">خطأ!</h3>
+                    <p class="text-gray-300">حدث خطأ أثناء إرسال الرسالة. الرجاء المحاولة مرة أخرى.</p>
+                </div>
+            </div>
+        `;
+        
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `
+            <span>إرسال الرسالة</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+        `;
+    });
+});
+</script>
 
 <?php include 'footer.php'; ?>
