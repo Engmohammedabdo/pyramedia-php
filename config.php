@@ -111,27 +111,6 @@ function get_current_page() {
     return $page === 'index' ? 'home' : $page;
 }
 
-function get_lang() {
-    return $_SESSION['lang'] ?? 'ar';
-}
-
-function set_lang($lang) {
-    $_SESSION['lang'] = $lang;
-}
-
-function t($key, $lang = null) {
-    $lang = $lang ?? get_lang();
-    static $translations = [];
-    
-    if (!isset($translations[$lang])) {
-        $file = __DIR__ . "/lang/{$lang}.json";
-        if (file_exists($file)) {
-            $translations[$lang] = json_decode(file_get_contents($file), true);
-        } else {
-            $translations[$lang] = [];
-        }
-    }
-    
-    return $translations[$lang][$key] ?? $key;
-}
+// i18n functions moved to i18n.php
+// get_lang(), set_lang(), t() are now in i18n.php
 ?>
