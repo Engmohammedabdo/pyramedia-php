@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+require_once 'i18n.php';
 require_once 'schema.php';
 $current_page = get_current_page();
 
@@ -10,7 +11,7 @@ $page_image = $page_image ?? 'http://pyramedia.72.61.148.81.sslip.io/assets/og-i
 $page_url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 ?>
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="<?php echo lang_code(); ?>" dir="<?php echo lang_dir(); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -131,28 +132,39 @@ $page_url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center gap-8">
                     <a href="<?php echo url(); ?>" 
-                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'home' ? 'text-primary' : ''; ?>">
-                        الرئيسية
-                    </a>
-                    <a href="<?php echo url('about.php'); ?>" 
-                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'about' ? 'text-primary' : ''; ?>">
-                        من نحن
+                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'index' ? 'text-primary' : ''; ?>">
+                        <?php echo t('nav.home'); ?>
                     </a>
                     <a href="<?php echo url('services.php'); ?>" 
                        class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'services' ? 'text-primary' : ''; ?>">
-                        خدماتنا
+                        <?php echo t('nav.services'); ?>
                     </a>
                     <a href="<?php echo url('portfolio.php'); ?>" 
                        class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'portfolio' ? 'text-primary' : ''; ?>">
-                        أعمالنا
+                        <?php echo t('nav.portfolio'); ?>
+                    </a>
+                    <a href="<?php echo url('case-studies.php'); ?>" 
+                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'case-studies' ? 'text-primary' : ''; ?>">
+                        <?php echo t('nav.case_studies'); ?>
                     </a>
                     <a href="<?php echo url('pricing.php'); ?>" 
                        class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'pricing' ? 'text-primary' : ''; ?>">
-                        الأسعار
+                        <?php echo t('nav.pricing'); ?>
                     </a>
                     <a href="<?php echo url('contact.php'); ?>" 
                        class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'contact' ? 'text-primary' : ''; ?>">
-                        تواصل معنا
+                        <?php echo t('nav.contact'); ?>
+                    </a>
+                </div>
+
+                <!-- Language Switcher -->
+                <div class="hidden md:block">
+                    <a href="<?php echo url('switch_lang.php?lang=' . get_other_lang() . '&redirect=' . urlencode($_SERVER['REQUEST_URI'])); ?>" 
+                       class="px-4 py-2 rounded-lg hover:bg-white/5 transition-colors inline-flex items-center gap-2 text-gray-300 hover:text-primary">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                        </svg>
+                        <span><?php echo get_lang_name(get_other_lang()); ?></span>
                     </a>
                 </div>
 
@@ -160,7 +172,7 @@ $page_url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
                 <div class="hidden md:block">
                     <a href="<?php echo url('contact.php'); ?>" 
                        class="px-6 py-3 bg-primary hover:bg-primary-600 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-xl hover:scale-105 inline-flex items-center gap-2">
-                        <span>ابدأ مشروعك</span>
+                        <span><?php echo t('home.hero_cta'); ?></span>
                     </a>
                 </div>
 
@@ -175,14 +187,20 @@ $page_url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden md:hidden py-4 border-t border-white/10">
                 <div class="flex flex-col gap-4">
-                    <a href="<?php echo url(); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">الرئيسية</a>
-                    <a href="<?php echo url('about.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">من نحن</a>
-                    <a href="<?php echo url('services.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">خدماتنا</a>
-                    <a href="<?php echo url('portfolio.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">أعمالنا</a>
-                    <a href="<?php echo url('pricing.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">الأسعار</a>
-                    <a href="<?php echo url('contact.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2">تواصل معنا</a>
+                    <a href="<?php echo url(); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2"><?php echo t('nav.home'); ?></a>
+                    <a href="<?php echo url('services.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2"><?php echo t('nav.services'); ?></a>
+                    <a href="<?php echo url('portfolio.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2"><?php echo t('nav.portfolio'); ?></a>
+                    <a href="<?php echo url('case-studies.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2"><?php echo t('nav.case_studies'); ?></a>
+                    <a href="<?php echo url('pricing.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2"><?php echo t('nav.pricing'); ?></a>
+                    <a href="<?php echo url('contact.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2"><?php echo t('nav.contact'); ?></a>
+                    <a href="<?php echo url('switch_lang.php?lang=' . get_other_lang() . '&redirect=' . urlencode($_SERVER['REQUEST_URI'])); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2 inline-flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                        </svg>
+                        <span><?php echo get_lang_name(get_other_lang()); ?></span>
+                    </a>
                     <a href="<?php echo url('contact.php'); ?>" class="px-6 py-3 bg-primary hover:bg-primary-600 text-white rounded-lg font-semibold transition-all duration-300 text-center">
-                        ابدأ مشروعك
+                        <?php echo t('home.hero_cta'); ?>
                     </a>
                 </div>
             </div>
