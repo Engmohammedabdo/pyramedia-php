@@ -212,11 +212,16 @@ function showProjectDetails(index) {
             <div class="mb-6">
                 <h3 class="text-lg font-bold mb-3">الخدمات المقدمة:</h3>
                 <div class="flex flex-wrap gap-2">
-                    ${project.services.map(service => `
-                        <span class="px-3 py-1 rounded-lg text-sm bg-dark text-gray-300 border border-dark-light">
-                            ${service}
-                        </span>
-                    `).join('')}
+                    ${(() => {
+                        const services = Array.isArray(project.services) 
+                            ? project.services 
+                            : (project.services || '').split(',').map(s => s.trim()).filter(s => s);
+                        return services.map(service => `
+                            <span class="px-3 py-1 rounded-lg text-sm bg-dark text-gray-300 border border-dark-light">
+                                ${service}
+                            </span>
+                        `).join('');
+                    })()}
                 </div>
             </div>
 

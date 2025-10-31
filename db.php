@@ -25,7 +25,8 @@ function get_db_connection() {
             $conn = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (PDOException $e) {
             error_log("Database connection failed: " . $e->getMessage());
-            die("Database connection failed. Please try again later.");
+            // Don't die - allow fallback to JSON
+            throw $e;
         }
     }
     
