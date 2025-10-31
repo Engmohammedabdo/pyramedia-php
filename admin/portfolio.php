@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'client' => sanitize_input($_POST['client'] ?? ''),
                     'category' => sanitize_input($_POST['category'] ?? ''),
                     'description' => sanitize_input($_POST['description'] ?? ''),
+                    'image' => sanitize_input($_POST['image'] ?? ''),
                     'services' => sanitize_input($_POST['services'] ?? ''),
                     'duration' => sanitize_input($_POST['duration'] ?? ''),
                     'year' => (int)($_POST['year'] ?? date('Y')),
@@ -45,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'client' => sanitize_input($_POST['client'] ?? ''),
                     'category' => sanitize_input($_POST['category'] ?? ''),
                     'description' => sanitize_input($_POST['description'] ?? ''),
+                    'image' => sanitize_input($_POST['image'] ?? ''),
                     'services' => sanitize_input($_POST['services'] ?? ''),
                     'duration' => sanitize_input($_POST['duration'] ?? ''),
                     'year' => (int)($_POST['year'] ?? date('Y')),
@@ -159,6 +161,31 @@ $portfolio_items = db_fetch_all("SELECT * FROM portfolio_items ORDER BY year DES
             <label class="block text-sm font-medium text-gray-300 mb-2">الوصف</label>
             <textarea name="description" rows="4"
                       class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg text-white focus:outline-none focus:border-primary"></textarea>
+        </div>
+        
+        <!-- Image Upload -->
+        <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">صورة المشروع</label>
+            <input type="hidden" name="image" id="add_image_path">
+            <div class="flex items-center gap-4">
+                <div id="add_image_preview" class="hidden w-32 h-32 rounded-lg border-2 border-dark-light overflow-hidden">
+                    <img src="" alt="Preview" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1">
+                    <input type="file" id="add_image_input" accept="image/*" class="hidden">
+                    <button type="button" onclick="document.getElementById('add_image_input').click()" 
+                            class="px-4 py-2 bg-dark border border-dark-light text-gray-300 rounded-lg hover:border-primary transition-colors">
+                        <i class="fas fa-upload ml-2"></i>
+                        رفع صورة
+                    </button>
+                    <button type="button" id="add_remove_image" onclick="removeAddImage()" 
+                            class="hidden px-4 py-2 bg-red-500/10 text-red-400 rounded-lg hover:bg-red-500/20 transition-colors">
+                        <i class="fas fa-trash ml-2"></i>
+                        حذف الصورة
+                    </button>
+                    <p class="text-xs text-gray-500 mt-2">الحد الأقصى: 5MB | الصيغ: JPG, PNG, GIF, WEBP</p>
+                </div>
+            </div>
         </div>
         
         <div class="flex items-center">
@@ -297,6 +324,31 @@ $portfolio_items = db_fetch_all("SELECT * FROM portfolio_items ORDER BY year DES
                       class="w-full px-4 py-3 bg-dark border border-dark-light rounded-lg text-white focus:outline-none focus:border-primary"></textarea>
         </div>
         
+        <!-- Image Upload -->
+        <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">صورة المشروع</label>
+            <input type="hidden" name="image" id="edit_image_path">
+            <div class="flex items-center gap-4">
+                <div id="edit_image_preview" class="hidden w-32 h-32 rounded-lg border-2 border-dark-light overflow-hidden">
+                    <img src="" alt="Preview" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1">
+                    <input type="file" id="edit_image_input" accept="image/*" class="hidden">
+                    <button type="button" onclick="document.getElementById('edit_image_input').click()" 
+                            class="px-4 py-2 bg-dark border border-dark-light text-gray-300 rounded-lg hover:border-primary transition-colors">
+                        <i class="fas fa-upload ml-2"></i>
+                        رفع صورة
+                    </button>
+                    <button type="button" id="edit_remove_image" onclick="removeEditImage()" 
+                            class="hidden px-4 py-2 bg-red-500/10 text-red-400 rounded-lg hover:bg-red-500/20 transition-colors">
+                        <i class="fas fa-trash ml-2"></i>
+                        حذف الصورة
+                    </button>
+                    <p class="text-xs text-gray-500 mt-2">الحد الأقصى: 5MB | الصيغ: JPG, PNG, GIF, WEBP</p>
+                </div>
+            </div>
+        </div>
+        
         <div>
             <label class="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" name="featured" id="edit_featured" class="w-5 h-5 rounded bg-dark border-dark-light text-primary focus:ring-primary">
@@ -345,6 +397,17 @@ function showEditForm(id) {
     document.getElementById('edit_description').value = item.description || '';
     document.getElementById('edit_featured').checked = item.featured == 1;
     
+    // Handle image
+    if (item.image) {
+        document.getElementById('edit_image_path').value = item.image;
+        const preview = document.getElementById('edit_image_preview');
+        preview.querySelector('img').src = item.image;
+        preview.classList.remove('hidden');
+        document.getElementById('edit_remove_image').classList.remove('hidden');
+    } else {
+        removeEditImage();
+    }
+    
     // Show the form
     document.getElementById('editForm').classList.remove('hidden');
     document.getElementById('editForm').scrollIntoView({ behavior: 'smooth' });
@@ -352,6 +415,72 @@ function showEditForm(id) {
 
 function hideEditForm() {
     document.getElementById('editForm').classList.add('hidden');
+}
+
+// Image upload handlers
+document.getElementById('add_image_input').addEventListener('change', function(e) {
+    uploadImage(e.target.files[0], 'add');
+});
+
+document.getElementById('edit_image_input').addEventListener('change', function(e) {
+    uploadImage(e.target.files[0], 'edit');
+});
+
+function uploadImage(file, formType) {
+    if (!file) return;
+    
+    const formData = new FormData();
+    formData.append('image', file);
+    
+    // Show loading
+    const btn = document.querySelector(`#${formType}_image_input + button`);
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin ml-2"></i> جاري الرفع...';
+    btn.disabled = true;
+    
+    fetch('upload_image.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Set image path
+            document.getElementById(`${formType}_image_path`).value = data.file_path;
+            
+            // Show preview
+            const preview = document.getElementById(`${formType}_image_preview`);
+            preview.querySelector('img').src = data.file_path;
+            preview.classList.remove('hidden');
+            
+            // Show remove button
+            document.getElementById(`${formType}_remove_image`).classList.remove('hidden');
+        } else {
+            alert('خطأ: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('حدث خطأ أثناء رفع الصورة');
+    })
+    .finally(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    });
+}
+
+function removeAddImage() {
+    document.getElementById('add_image_path').value = '';
+    document.getElementById('add_image_preview').classList.add('hidden');
+    document.getElementById('add_remove_image').classList.add('hidden');
+    document.getElementById('add_image_input').value = '';
+}
+
+function removeEditImage() {
+    document.getElementById('edit_image_path').value = '';
+    document.getElementById('edit_image_preview').classList.add('hidden');
+    document.getElementById('edit_remove_image').classList.add('hidden');
+    document.getElementById('edit_image_input').value = '';
 }
 </script>
 
