@@ -15,14 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         switch ($action) {
             case 'mark_read':
-                if (db_update('contact_messages', ['is_read' => 1], 'id = :id', [':id' => $message_id])) {
+                if (db_update('contact_messages', ['status' => 'read'], 'id = :id', [':id' => $message_id])) {
                     $success = 'تم تحديد الرسالة كمقروءة';
                     log_admin_activity($_SESSION['admin_id'], 'mark_message_read', "Marked message #$message_id as read");
                 }
                 break;
                 
             case 'mark_unread':
-                if (db_update('contact_messages', ['is_read' => 0], 'id = :id', [':id' => $message_id])) {
+                if (db_update('contact_messages', ['status' => 'unread'], 'id = :id', [':id' => $message_id])) {
                     $success = 'تم تحديد الرسالة كغير مقروءة';
                     log_admin_activity($_SESSION['admin_id'], 'mark_message_unread', "Marked message #$message_id as unread");
                 }
@@ -44,9 +44,9 @@ $where = '1=1';
 $params = [];
 
 if ($filter === 'unread') {
-    $where = 'is_read = 0';
+    $where = "status = 'unread'";
 } elseif ($filter === 'read') {
-    $where = 'is_read = 1';
+    $where = "status = 'read'";
 }
 
 // Get messages
@@ -72,10 +72,10 @@ $messages = db_fetch_all("SELECT * FROM contact_messages WHERE $where ORDER BY c
         الكل (<?php echo db_count('contact_messages'); ?>)
     </a>
     <a href="?filter=unread" class="px-4 py-2 rounded-lg <?php echo $filter === 'unread' ? 'bg-primary text-dark' : 'bg-dark-lighter text-gray-300 hover:bg-dark-light'; ?> transition-colors">
-        غير مقروءة (<?php echo db_count('contact_messages', 'is_read = 0'); ?>)
+        غير مقروءة (<?php echo db_count('contact_messages', "status = 'unread'"); ?>)
     </a>
     <a href="?filter=read" class="px-4 py-2 rounded-lg <?php echo $filter === 'read' ? 'bg-primary text-dark' : 'bg-dark-lighter text-gray-300 hover:bg-dark-light'; ?> transition-colors">
-        مقروءة (<?php echo db_count('contact_messages', 'is_read = 1'); ?>)
+        مقروءة (<?php echo db_count('contact_messages', "status = 'read'"); ?>)
     </a>
 </div>
 
@@ -101,10 +101,10 @@ $messages = db_fetch_all("SELECT * FROM contact_messages WHERE $where ORDER BY c
                 </thead>
                 <tbody class="divide-y divide-dark-light">
                     <?php foreach ($messages as $message): ?>
-                    <tr class="<?php echo $message['is_read'] ? '' : 'bg-primary/5'; ?> hover:bg-dark-light transition-colors">
+                    <tr class="<?php echo $message['status'] === 'read' ? '' : 'bg-primary/5'; ?> hover:bg-dark-light transition-colors">
                         <td class="px-6 py-4">
                             <div class="flex items-center">
-                                <?php if (!$message['is_read']): ?>
+                                <?php if ($message['status'] === 'unread'): ?>
                                 <span class="w-2 h-2 rounded-full bg-primary ml-2"></span>
                                 <?php endif; ?>
                                 <span class="font-medium"><?php echo htmlspecialchars($message['name']); ?></span>
@@ -116,7 +116,7 @@ $messages = db_fetch_all("SELECT * FROM contact_messages WHERE $where ORDER BY c
                         </td>
                         <td class="px-6 py-4 text-gray-400 text-sm"><?php echo date('Y-m-d H:i', strtotime($message['created_at'])); ?></td>
                         <td class="px-6 py-4">
-                            <?php if ($message['is_read']): ?>
+                            <?php if ($message['status'] === 'read'): ?>
                             <span class="px-2 py-1 text-xs rounded-full bg-green-500/20 text-green-400">مقروءة</span>
                             <?php else: ?>
                             <span class="px-2 py-1 text-xs rounded-full bg-yellow-500/20 text-yellow-400">جديدة</span>
@@ -134,12 +134,12 @@ $messages = db_fetch_all("SELECT * FROM contact_messages WHERE $where ORDER BY c
                                 <!-- Mark Read/Unread -->
                                 <form method="POST" class="inline">
                                     <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
-                                    <input type="hidden" name="action" value="<?php echo $message['is_read'] ? 'mark_unread' : 'mark_read'; ?>">
+                                    <input type="hidden" name="action" value="<?php echo $message['status'] === 'read' ? 'mark_unread' : 'mark_read'; ?>">
                                     <input type="hidden" name="message_id" value="<?php echo $message['id']; ?>">
                                     <button type="submit" 
                                             class="p-2 text-yellow-400 hover:bg-yellow-500/10 rounded transition-colors" 
-                                            title="<?php echo $message['is_read'] ? 'تحديد كغير مقروءة' : 'تحديد كمقروءة'; ?>">
-                                        <i class="fas fa-<?php echo $message['is_read'] ? 'envelope' : 'envelope-open'; ?>"></i>
+                                            title="<?php echo $message['status'] === 'read' ? 'تحديد كغير مقروءة' : 'تحديد كمقروءة'; ?>">
+                                        <i class="fas fa-<?php echo $message['status'] === 'read' ? 'envelope' : 'envelope-open'; ?>"></i>
                                     </button>
                                 </form>
                                 
