@@ -96,12 +96,6 @@ function get_portfolio_data() {
         return $portfolio;
     }
     
-    // Last fallback: old portfolio.json
-    $old_json = __DIR__ . '/portfolio.json';
-    if (file_exists($old_json)) {
-        $json = file_get_contents($old_json);
-        return json_decode($json, true);
-    }
     
     return [];
 }
