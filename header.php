@@ -7,8 +7,8 @@ $current_page = get_current_page();
 // Set default SEO values
 $page_title = $page_title ?? SITE_TITLE;
 $page_description = $page_description ?? SITE_DESCRIPTION;
-$page_image = $page_image ?? 'http://pyramedia.72.61.148.81.sslip.io/assets/og-image.jpg';
-$page_url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$page_image = $page_image ?? SITE_URL . '/assets/og-image.jpg';
+$page_url = SITE_URL . $_SERVER['REQUEST_URI'];
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo lang_code(); ?>" dir="<?php echo lang_dir(); ?>">
@@ -26,191 +26,255 @@ $page_url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     
     <?php render_og_tags($page_title, $page_description, $page_image, $page_url); ?>
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Gradient Mesh Tech CSS -->
+    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/gradient-mesh.css">
     
-    <!-- Tailwind Config -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            DEFAULT: '#d4af37',  // Gold
-                            50: '#faf8f0',
-                            100: '#f5f0dd',
-                            200: '#ebe1bb',
-                            300: '#e0d299',
-                            400: '#d6c377',
-                            500: '#d4af37',
-                            600: '#c19a1f',
-                            700: '#9a7b19',
-                            800: '#735c13',
-                            900: '#4c3d0d',
-                        },
-                        dark: {
-                            DEFAULT: '#0b0b0c',  // Deep black
-                            lighter: '#1A1A1A',
-                            light: '#2A2A2A',
-                        },
-                        muted: '#9aa0a6',
-                        accent: {
-                            cyan: '#00D9FF',
-                            gold: '#d4af37',
-                        }
-                    },
-                    fontFamily: {
-                        arabic: ['Cairo', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    
-    <!-- Custom Styles -->
+    <!-- Additional Page Styles -->
     <style>
-        body {
-            font-family: 'Cairo', sans-serif;
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #d4af37 0%, #f5f0dd 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .animate-fade-in-up {
-            animation: fadeInUp 0.6s ease-out;
-        }
+        /* Page-specific overrides can go here */
     </style>
+    
+    <?php if (isset($additional_head)): ?>
+        <?php echo $additional_head; ?>
+    <?php endif; ?>
 </head>
-<body class="bg-dark text-white">
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
+<body>
+    <!-- Floating Geometric Shapes Background -->
+    <div class="floating-shapes">
+        <div class="shape shape-circle" style="top: 10%; left: 10%; width: 300px; height: 300px;"></div>
+        <div class="shape shape-square" style="top: 60%; right: 15%; width: 200px; height: 200px;"></div>
+        <div class="shape shape-pentagon" style="bottom: 20%; left: 20%; width: 250px; height: 250px;"></div>
+        <div class="shape shape-circle" style="top: 30%; right: 30%; width: 180px; height: 180px;"></div>
+        <div class="shape shape-square" style="bottom: 40%; right: 10%; width: 220px; height: 220px;"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
                 <!-- Logo -->
-                <a href="<?php echo url(); ?>" class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent-gold flex items-center justify-center">
-                        <span class="text-white font-bold text-xl">P</span>
-                    </div>
-                    <span class="text-2xl font-bold gradient-text">PYRAMEDIA</span>
+                <a href="<?php echo SITE_URL; ?>/" class="logo">
+                    <i class="fas fa-robot"></i> <?php echo SITE_NAME; ?>
                 </a>
 
                 <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="<?php echo url(); ?>" 
-                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'index' ? 'text-primary' : ''; ?>">
-                        <?php echo t('nav.home'); ?>
-                    </a>
-                    <a href="<?php echo url('services.php'); ?>" 
-                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'services' ? 'text-primary' : ''; ?>">
-                        <?php echo t('nav.services'); ?>
-                    </a>
-                    <a href="<?php echo url('portfolio.php'); ?>" 
-                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'portfolio' ? 'text-primary' : ''; ?>">
-                        <?php echo t('nav.portfolio'); ?>
-                    </a>
-                    <a href="<?php echo url('case-studies.php'); ?>" 
-                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'case-studies' ? 'text-primary' : ''; ?>">
-                        <?php echo t('nav.case_studies'); ?>
-                    </a>
-                    <a href="<?php echo url('pricing.php'); ?>" 
-                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'pricing' ? 'text-primary' : ''; ?>">
-                        <?php echo t('nav.pricing'); ?>
-                    </a>
-                    <a href="<?php echo url('contact.php'); ?>" 
-                       class="text-gray-300 hover:text-primary transition-colors duration-300 <?php echo $current_page === 'contact' ? 'text-primary' : ''; ?>">
-                        <?php echo t('nav.contact'); ?>
-                    </a>
-                </div>
+                <ul class="nav-links desktop-nav">
+                    <li><a href="<?php echo SITE_URL; ?>/" class="<?php echo $current_page == 'index' ? 'active' : ''; ?>">
+                        <i class="fas fa-home"></i> <?php echo t('nav_home'); ?>
+                    </a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/portfolio.php" class="<?php echo $current_page == 'portfolio' ? 'active' : ''; ?>">
+                        <i class="fas fa-briefcase"></i> <?php echo t('nav_portfolio'); ?>
+                    </a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/services.php" class="<?php echo $current_page == 'services' ? 'active' : ''; ?>">
+                        <i class="fas fa-cogs"></i> <?php echo t('nav_services'); ?>
+                    </a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/pricing.php" class="<?php echo $current_page == 'pricing' ? 'active' : ''; ?>">
+                        <i class="fas fa-tags"></i> <?php echo t('nav_pricing'); ?>
+                    </a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/case-studies.php" class="<?php echo $current_page == 'case-studies' ? 'active' : ''; ?>">
+                        <i class="fas fa-chart-line"></i> <?php echo t('nav_case_studies'); ?>
+                    </a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/contact.php" class="<?php echo $current_page == 'contact' ? 'active' : ''; ?>">
+                        <i class="fas fa-envelope"></i> <?php echo t('nav_contact'); ?>
+                    </a></li>
+                    
+                    <!-- Language Switcher -->
+                    <li class="lang-switcher">
+                        <?php if (get_lang() == 'ar'): ?>
+                            <a href="<?php echo SITE_URL; ?>/switch_lang.php?lang=en&redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="btn-lang">
+                                <i class="fas fa-globe"></i> EN
+                            </a>
+                        <?php else: ?>
+                            <a href="<?php echo SITE_URL; ?>/switch_lang.php?lang=ar&redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="btn-lang">
+                                <i class="fas fa-globe"></i> عربي
+                            </a>
+                        <?php endif; ?>
+                    </li>
+                </ul>
 
-                <!-- Language Switcher -->
-                <div class="hidden md:block">
-                    <a href="<?php echo url('switch_lang.php?lang=' . get_other_lang() . '&redirect=' . urlencode($_SERVER['REQUEST_URI'])); ?>" 
-                       class="px-4 py-2 rounded-lg hover:bg-white/5 transition-colors inline-flex items-center gap-2 text-gray-300 hover:text-primary">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
-                        </svg>
-                        <span><?php echo get_lang_name(get_other_lang()); ?></span>
-                    </a>
-                </div>
-
-                <!-- CTA Button -->
-                <div class="hidden md:block">
-                    <a href="<?php echo url('contact.php'); ?>" 
-                       class="px-6 py-3 bg-primary hover:bg-primary-600 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-xl hover:scale-105 inline-flex items-center gap-2">
-                        <span><?php echo t('home.hero_cta'); ?></span>
-                    </a>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-white/5 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
                 </button>
-            </div>
+            </nav>
 
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="hidden md:hidden py-4 border-t border-white/10">
-                <div class="flex flex-col gap-4">
-                    <a href="<?php echo url(); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2"><?php echo t('nav.home'); ?></a>
-                    <a href="<?php echo url('services.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2"><?php echo t('nav.services'); ?></a>
-                    <a href="<?php echo url('portfolio.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2"><?php echo t('nav.portfolio'); ?></a>
-                    <a href="<?php echo url('case-studies.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2"><?php echo t('nav.case_studies'); ?></a>
-                    <a href="<?php echo url('pricing.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2"><?php echo t('nav.pricing'); ?></a>
-                    <a href="<?php echo url('contact.php'); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2"><?php echo t('nav.contact'); ?></a>
-                    <a href="<?php echo url('switch_lang.php?lang=' . get_other_lang() . '&redirect=' . urlencode($_SERVER['REQUEST_URI'])); ?>" class="text-gray-300 hover:text-primary transition-colors duration-300 py-2 inline-flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
-                        </svg>
-                        <span><?php echo get_lang_name(get_other_lang()); ?></span>
-                    </a>
-                    <a href="<?php echo url('contact.php'); ?>" class="px-6 py-3 bg-primary hover:bg-primary-600 text-white rounded-lg font-semibold transition-all duration-300 text-center">
-                        <?php echo t('home.hero_cta'); ?>
-                    </a>
-                </div>
+            <!-- Mobile Navigation -->
+            <div class="mobile-nav" id="mobileNav">
+                <ul class="mobile-nav-links">
+                    <li><a href="<?php echo SITE_URL; ?>/" class="<?php echo $current_page == 'index' ? 'active' : ''; ?>">
+                        <i class="fas fa-home"></i> <?php echo t('nav_home'); ?>
+                    </a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/portfolio.php" class="<?php echo $current_page == 'portfolio' ? 'active' : ''; ?>">
+                        <i class="fas fa-briefcase"></i> <?php echo t('nav_portfolio'); ?>
+                    </a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/services.php" class="<?php echo $current_page == 'services' ? 'active' : ''; ?>">
+                        <i class="fas fa-cogs"></i> <?php echo t('nav_services'); ?>
+                    </a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/pricing.php" class="<?php echo $current_page == 'pricing' ? 'active' : ''; ?>">
+                        <i class="fas fa-tags"></i> <?php echo t('nav_pricing'); ?>
+                    </a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/case-studies.php" class="<?php echo $current_page == 'case-studies' ? 'active' : ''; ?>">
+                        <i class="fas fa-chart-line"></i> <?php echo t('nav_case_studies'); ?>
+                    </a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/contact.php" class="<?php echo $current_page == 'contact' ? 'active' : ''; ?>">
+                        <i class="fas fa-envelope"></i> <?php echo t('nav_contact'); ?>
+                    </a></li>
+                    <li class="lang-switcher-mobile">
+                        <?php if (get_lang() == 'ar'): ?>
+                            <a href="<?php echo SITE_URL; ?>/switch_lang.php?lang=en&redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">
+                                <i class="fas fa-globe"></i> English
+                            </a>
+                        <?php else: ?>
+                            <a href="<?php echo SITE_URL; ?>/switch_lang.php?lang=ar&redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">
+                                <i class="fas fa-globe"></i> عربي
+                            </a>
+                        <?php endif; ?>
+                    </li>
+                </ul>
             </div>
         </div>
-    </nav>
+    </header>
 
+    <!-- Add spacing for fixed header -->
+    <div style="height: 80px;"></div>
+
+    <!-- Mobile Menu Script -->
     <script>
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileNav = document.getElementById('mobileNav');
+            
+            if (mobileMenuToggle && mobileNav) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mobileNav.classList.toggle('active');
+                    const icon = this.querySelector('i');
+                    if (mobileNav.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // Scroll Animation
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
         });
     </script>
 
+    <style>
+        /* Mobile Navigation Styles */
+        .desktop-nav {
+            display: flex;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--electric-cyan);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: rgba(26, 11, 46, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.3);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .mobile-nav.active {
+            max-height: 500px;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .mobile-nav-links li {
+            margin: 0;
+        }
+
+        .mobile-nav-links a {
+            display: block;
+            padding: 1rem 2rem;
+            color: var(--text-light);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-links a:hover,
+        .mobile-nav-links a.active {
+            background: var(--gradient-hover);
+            color: var(--electric-cyan);
+            text-shadow: var(--glow-cyan);
+        }
+
+        .mobile-nav-links i {
+            margin-left: 0.5rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .btn-lang {
+            padding: 0.5rem 1rem !important;
+            background: var(--gradient-card);
+            border: 1px solid var(--accent-purple);
+            border-radius: var(--radius-sm);
+        }
+
+        .btn-lang:hover {
+            background: var(--gradient-hover);
+            border-color: var(--electric-cyan);
+        }
+
+        @media (max-width: 1024px) {
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .mobile-nav {
+                display: block;
+            }
+        }
+
+        /* RTL Support */
+        [dir="rtl"] .nav-links i,
+        [dir="rtl"] .mobile-nav-links i {
+            margin-left: 0;
+            margin-right: 0.5rem;
+        }
+    </style>
