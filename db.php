@@ -4,10 +4,11 @@
  */
 
 // Database configuration
-define('DB_HOST', getenv('DB_HOST') ?: 'qowwgg884444wkokkswggs84');
-define('DB_NAME', getenv('DB_NAME') ?: 'pyramedia');
-define('DB_USER', getenv('DB_USER') ?: 'mysql');
-define('DB_PASS', getenv('DB_PASS') ?: 'fiSvKubF2P2hRa9H6eNZIoBaScNJDBc3W2QV34Imt4NbzOSPVQtvQjGowTljQ8v7');
+// Bluehost configuration
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_NAME', getenv('DB_NAME') ?: 'pyramed1_manus');
+define('DB_USER', getenv('DB_USER') ?: 'pyramed1_manus');
+define('DB_PASS', getenv('DB_PASS') ?: 'Engmidoz@2020');
 define('DB_CHARSET', 'utf8mb4');
 
 // Create connection
